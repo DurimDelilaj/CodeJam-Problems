@@ -6,21 +6,24 @@
 
 using namespace std;
 
- // Hello  
+  
 
 bool PrimeCheck(int Num )
 {
-  int SquareRoot = sqrt(Num);
-
   if(Num < 2)
   {
     return false;
   }
- 
-  if(Num % 2 != 0 || Num == 2)
+  
+  for(int i {2} ; i <= sqrt(Num) ; i++)
   {
-    return true;
+    if( Num % i == 0)
+    {
+      return false;
+    }
   }
+
+  return true;
 }
 
 
@@ -88,7 +91,7 @@ int main()
 
   CryptedVal(CryptedValues , InputValues);
 
-  DecryptMessage(PrimeValues , CryptedValues , DecryptedValues);
+  //DecryptMessage(PrimeValues , CryptedValues , DecryptedValues);
 
   /*for(int i : DecryptedValues)
   {
@@ -112,7 +115,7 @@ int main()
     
     Index++;
   } */ 
-  for(int i : DecryptedValues)
+  for(int i : PrimeValues)
   {
     cout<< i <<endl;
   }
