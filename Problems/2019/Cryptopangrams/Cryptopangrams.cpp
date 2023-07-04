@@ -79,7 +79,7 @@ int main()
   vector<int> CryptedValues {};
   vector<int> PrimeValues {};
   vector<int> DecryptedValues {};
-  vector<int> ValCharacters {};
+  vector<int> Characters {};
   
 
   int Max {} , InputValues {} , Index {} , Double {1};
@@ -91,7 +91,7 @@ int main()
 
   CryptedVal(CryptedValues , InputValues);
 
-  //DecryptMessage(PrimeValues , CryptedValues , DecryptedValues);
+  DecryptMessage(PrimeValues , CryptedValues , DecryptedValues);
 
   /*for(int i : DecryptedValues)
   {
