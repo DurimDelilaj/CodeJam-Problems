@@ -62,9 +62,10 @@ void CharacterVerifier (vector<int> PrimeValues , vector<int> &DecryptedValues ,
       DecryptedValues.push_back(CryptedValue / i);
     }
   }
+
 }
 
-void DecryptMessage(vector<int> PrimeValues , vector<int> CryptedValues , vector<int> &DecryptedValues)
+void DecryptMessage(vector<int> PrimeValues , vector<int> CryptedValues , vector<int> &DecryptedValues )
 {
   for(int i : CryptedValues)
   {
@@ -79,6 +80,7 @@ int main()
   vector<int> CryptedValues {};
   vector<int> PrimeValues {};
   vector<int> DecryptedValues {};
+  vector<int> ValCharacters {};
   vector<int> Characters {};
   
 
@@ -93,29 +95,28 @@ int main()
 
   DecryptMessage(PrimeValues , CryptedValues , DecryptedValues);
 
-  /*for(int i : DecryptedValues)
+  for(int i : DecryptedValues)
   {
+    if(Index == ((CryptedValues.size() * 2) - 2))
+    {
+      ValCharacters.push_back(DecryptedValues.at(DecryptedValues.size() - 1));
+      break;
+    }
+
     if(i == DecryptedValues[0])
     {
-      cout<< i <<endl;
       ValCharacters.push_back(i);
     }
 
-    if(i == DecryptedValues[Index + 1] && i != DecryptedValues[0] && i != DecryptedValues[( DecryptedValues.size() - 1)])
+    if(i == DecryptedValues[Index + 1] || i == DecryptedValues[Index + 2] && i != DecryptedValues[DecryptedValues.size() - 1])
     {
-      cout<< i <<endl;
-      ValCharacters.push_back(i);
-    }
-
-    if(i == DecryptedValues[(DecryptedValues.size() - 1)])
-    {
-      cout<< i <<endl;
       ValCharacters.push_back(i);
     }
     
     Index++;
-  } */ 
-  for(int i : PrimeValues)
+  } 
+
+  for(int i : ValCharacters)
   {
     cout<< i <<endl;
   }
