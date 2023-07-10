@@ -41,6 +41,54 @@ void CryptedInput (vector<int> &CryptedValues , int Length)
   }
 }
 
+bool PrimeCheck(int Num )
+{
+  if(Num < 2)
+  {
+    return false;
+  }
+  
+  for(int i {2} ; i <= sqrt(Num) ; i++)
+  {
+    if( Num % i == 0)
+    {
+      return false;
+    }
+  }
+
+  return true;
+}
+
+
+void DivisorList (int Max , vector<int> &DivisorValues)
+{
+  int Prime {0};
+
+  for(int i {Max} ; Prime != 26 ; i--)
+  {
+    if(PrimeCheck(i) == true)
+    {
+      DivisorValues.push_back(i);
+      Prime++;
+    }
+  }
+}
+
+int Bigger(vector<int>DecryptedValues)
+{
+  int BiggerPrime {0};
+
+  for(int i : DecryptedValues)
+  {
+    if(i > BiggerPrime)
+    {
+      BiggerPrime = i;
+    }
+  }
+
+  return BiggerPrime;
+}
+
 void DecryptValues( vector<int> &DivisorValues , vector<int> &DecryptedValues , vector<int> &CryptedValues )
 {
 
@@ -120,25 +168,16 @@ int main()
 
     DecryptValues( PrimeValues , DecryptedValues , CryptedValues);
 
-    //sort(Lol.begin() , Lol.end());
+    DivisorList( Bigger(DecryptedValues) , DivisorValues);
 
-    //Message(DecryptedValues , PrimeValues , Lol , Cont);
+    sort(DivisorValues.begin() , DivisorValues.end());
+
+    Message(DecryptedValues , PrimeValues , DivisorValues , Cont);
     
     Cont++;
     TestCases--;
   }
 
-  for(int i : PrimeValues)
-  {
-    cout<< i <<endl;
-  }
-
-  cout<< "********" <<endl;
-
-  for(int i : DivisorValues)
-  {
-    cout<< i <<endl;
-  }
 
   return 0;
 
