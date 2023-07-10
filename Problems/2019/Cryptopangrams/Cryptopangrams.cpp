@@ -2,48 +2,36 @@
 #include <iostream>
 #include <vector>
 #include <cmath>
+#include <algorithm>
+
 
 
 using namespace std;
 
-  
-
-bool PrimeCheck(long int Num )
+int Test(int CryptedValue , vector<int> &PrimeValues)
 {
-  if(Num < 2)
+  for(int i {2} ; i != CryptedValue ; i++)
   {
-    return false;
-  }
-  
-  for(int i {2} ; i <= sqrt(Num) ; i++)
-  {
-    if( Num % i == 0)
-    {
-      return false;
-    }
-  }
-
-  return true;
-}
-
-
-void PrimeList (long int Max , vector<long long int> &PrimeValues)
-{
-  long int Prime {0};
-
-  for(long int i {Max} ; Prime != 26 ; i--)
-  {
-    if(PrimeCheck(i) == true)
+    if(CryptedValue % i == 0 )
     {
       PrimeValues.push_back(i);
-      Prime++;
     }
+  }
+
+  return 0;
+}
+
+void PrimeList (int Max , vector<int> &PrimeValues , vector<int> CryptedValues)
+{
+  for(int i : CryptedValues)
+  {
+    Test(i , PrimeValues);
   }
 }
 
-void CryptedInput (vector<long long int> &CryptedValues , long int Length)
+void CryptedInput (vector<int> &CryptedValues , int Length)
 {
-  long long int Cont {0} , Input {};
+  int Cont {0} , Input {};
 
   while(Cont != Length)
   {
@@ -53,32 +41,10 @@ void CryptedInput (vector<long long int> &CryptedValues , long int Length)
   }
 }
 
-void DivisorCheck (vector<long long int> PrimeValues , vector<long long int> &DivisorValues , long long int CryptedValue)
-{
-  for(long long int i : PrimeValues)
-  {
-    if(CryptedValue % i == 0 )
-    {
-      DivisorValues.push_back(CryptedValue / i);
-    }
-  }
-
-}
-
-void DivisorList (vector<long long int> PrimeValues , vector<long long int> CryptedValues , vector<long long int> &DivisorValues )
-{
-  for(long int i : CryptedValues)
-  {
-    DivisorCheck(PrimeValues , DivisorValues , i);
-  }
-}
-  
-
-
-void DecryptValues( vector<long long int> &DivisorValues , vector<long long int> &DecryptedValues , vector<long long int> &CryptedValues )
+void DecryptValues( vector<int> &DivisorValues , vector<int> &DecryptedValues , vector<int> &CryptedValues )
 {
 
-  long int Index {0};
+  int Index {0};
 
   for(int i : DivisorValues)
   {
@@ -93,7 +59,7 @@ void DecryptValues( vector<long long int> &DivisorValues , vector<long long int>
       DecryptedValues.push_back(i);
     }
 
-    if(i == DivisorValues[Index + 1] || i == DivisorValues[Index + 2] && i != DivisorValues[DivisorValues.size() - 1])
+    if(i == DivisorValues[Index + 1] || (i == DivisorValues[Index + 2] && i != DivisorValues[DivisorValues.size() - 1]))
     {
       DecryptedValues.push_back(i);
     }
@@ -102,24 +68,24 @@ void DecryptValues( vector<long long int> &DivisorValues , vector<long long int>
   }  
 }
 
-int DecryptMessage (vector<long long int> PrimeValues, long int Value)
+int DecryptMessage (vector<int> PrimeValues, vector<int> Lol ,int Value)
 {
-  long int Index {25};
+  int Index {0};
 
-  for(long long int i : PrimeValues)
+  for(int i : Lol)
   {
     if(Value == i)
     {
       break;
     }
 
-    Index--;
+    Index++;
   }
 
   return Index;
 }
 
-void Message (vector<long long int> DecryptedValues , vector<long long int> PrimeValues ,long int Cont)
+void Message (vector<int> DecryptedValues , vector<int> PrimeValues , vector<int> Lol , int Cont)
 {
   vector<char> Character {'A' , 'B' , 'C' , 'D' , 'E' , 'F' , 'G' , 'H' , 'I' , 'J' , 'K' , 'L' , 'M' , 'N', 'O', 'P' , 'Q' , 'R' , 'S' , 'T' , 'U' , 'V' , 'W' , 'X' , 'Y' , 'Z'};
 
@@ -127,7 +93,7 @@ void Message (vector<long long int> DecryptedValues , vector<long long int> Prim
 
   for(int i : DecryptedValues)
   {
-    cout<< Character[DecryptMessage(PrimeValues , i)];
+    cout<< Character[DecryptMessage(PrimeValues , Lol , i)];
   }
 
   cout<< "\n";
@@ -135,12 +101,12 @@ void Message (vector<long long int> DecryptedValues , vector<long long int> Prim
 
 int main()
 {
-  vector<long long int> CryptedValues {};
-  vector<long long int> PrimeValues {};
-  vector<long long int> DivisorValues {};
-  vector<long long int> DecryptedValues {};
-  
-  long int Max {} , Length {} , TestCases {} , Cont {1};
+  vector<int> CryptedValues {};
+  vector<int> PrimeValues {};
+  vector<int> DivisorValues {};
+  vector<int> DecryptedValues {};
+
+  int Max {} , Length {} , TestCases {} , Cont {1};
 
   cin >> TestCases;
 
@@ -148,20 +114,32 @@ int main()
   {
     cin >> Max >> Length;
 
-    PrimeList( Max , PrimeValues );
-
     CryptedInput( CryptedValues , Length );
 
-    DivisorList( PrimeValues , CryptedValues , DivisorValues );
+    PrimeList(Max , PrimeValues , CryptedValues);
 
-    DecryptValues( DivisorValues , DecryptedValues , CryptedValues );
+    DecryptValues( PrimeValues , DecryptedValues , CryptedValues);
 
-    Message(DecryptedValues , PrimeValues , Cont);
+    //sort(Lol.begin() , Lol.end());
+
+    //Message(DecryptedValues , PrimeValues , Lol , Cont);
     
     Cont++;
     TestCases--;
   }
-  
+
+  for(int i : PrimeValues)
+  {
+    cout<< i <<endl;
+  }
+
+  cout<< "********" <<endl;
+
+  for(int i : DivisorValues)
+  {
+    cout<< i <<endl;
+  }
+
   return 0;
 
 }
