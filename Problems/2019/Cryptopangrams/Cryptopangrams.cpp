@@ -8,7 +8,7 @@
 
 using namespace std;
 
-int Test(int CryptedValue, vector<int>& PrimeValues)
+int PrimeCheck(int CryptedValue, vector<int>& PrimeValues)
 {
     for (int i{ 2 }; i != CryptedValue; i++)
     {
@@ -25,7 +25,7 @@ void PrimeList(int Max, vector<int>& PrimeValues, vector<int> CryptedValues)
 {
     for (int i : CryptedValues)
     {
-        Test(i, PrimeValues);
+        PrimeCheck(i, PrimeValues);
     }
 }
 
@@ -91,7 +91,7 @@ void Message(vector<int> DecryptedValues, vector<int> PrimeValues, vector<int> D
 {
     vector<char> Character {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'};
 
-    cout << "Case #" << Cont << ":";
+    cout << "\nCase #" << Cont << ":";
 
     for (int i : DecryptedValues)
     {
@@ -103,50 +103,36 @@ void Message(vector<int> DecryptedValues, vector<int> PrimeValues, vector<int> D
 
 int main()
 {
+  int TestCases{}, Cont{ 1 };
+
+  cin >> TestCases;
+
+  while (TestCases != 0)
+  {
     vector<int> CryptedValues {};
     vector<int> PrimeValues {};
     vector<int> DivisorValues {};
     vector<int> DecryptedValues {};
 
-    int Max{}, Length{}, TestCases{}, Cont{ 1 };
+    int Max {} , Length {};
+    cin >> Max >> Length;
 
-    cin >> TestCases;
+    CryptedInput(CryptedValues, Length);
 
-    while (TestCases != 0)
-    {
-        cin >> Max >> Length;
+    PrimeList(Max, PrimeValues, CryptedValues);
 
-        CryptedInput(CryptedValues, Length);
+    DecryptValues(PrimeValues, DecryptedValues, CryptedValues);
 
-        PrimeList(Max, PrimeValues, CryptedValues);
+    DivisorValues = DecryptedValues;
 
-        DecryptValues(PrimeValues, DecryptedValues, CryptedValues);
+    sort(DivisorValues.begin(), DivisorValues.end());
+    DivisorValues.erase(unique(DivisorValues.begin(), DivisorValues.end()), DivisorValues.end());
 
-        DivisorValues = DecryptedValues;
+    Message(DecryptedValues, PrimeValues, DivisorValues, Cont);
 
-        sort(DivisorValues.begin(), DivisorValues.end());
-        DivisorValues.erase(unique(DivisorValues.begin(), DivisorValues.end()), DivisorValues.end());
-
-        Message(DecryptedValues, PrimeValues, DivisorValues, Cont);
-
-        Cont++;
-        TestCases--;
-    }
-
-    for(int i : PrimeValues)
-    {
-        cout<< i <<endl;
-    }
-
-
-    cout<< "*****************"<<endl;
-    
-    for (int i : DecryptedValues)
-    {
-        cout << i << endl;
-    }
-   
-
+    Cont++;
+    TestCases--;
+  }
 
     return 0;
 
