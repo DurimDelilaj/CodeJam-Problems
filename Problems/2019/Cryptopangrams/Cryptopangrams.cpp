@@ -91,7 +91,11 @@ void Message(vector<int> DecryptedValues, vector<int> PrimeValues, vector<int> D
 {
     vector<char> Character {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'};
 
-    cout << "\nCase # " << Cont << ":";
+    if(Cont == 1)
+    {
+      cout<< "\n";
+    }
+    cout << "Case # " << Cont << ":";
 
     for (int i : DecryptedValues)
     {
