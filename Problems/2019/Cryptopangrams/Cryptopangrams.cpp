@@ -91,7 +91,7 @@ void Message(vector<int> DecryptedValues, vector<int> PrimeValues, vector<int> D
 {
     vector<char> Character {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'};
 
-    cout << "\nCase #" << Cont << ":";
+    cout << "\nCase # " << Cont << ":";
 
     for (int i : DecryptedValues)
     {
@@ -103,9 +103,10 @@ void Message(vector<int> DecryptedValues, vector<int> PrimeValues, vector<int> D
 
 int main()
 {
-  int TestCases{}, Cont{ 1 };
+  int TestCases{}, Cont{ 1 } ;
 
   cin >> TestCases;
+
 
   while (TestCases != 0)
   {
@@ -115,7 +116,8 @@ int main()
     vector<int> DecryptedValues {};
 
     int Max {} , Length {};
-    cin >> Max >> Length;
+    
+    cin>> Max >> Length;
 
     CryptedInput(CryptedValues, Length);
 
@@ -134,6 +136,5 @@ int main()
     TestCases--;
   }
 
-    return 0;
-
+  return 0;
 }
