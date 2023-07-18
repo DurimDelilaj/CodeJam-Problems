@@ -46,7 +46,7 @@ void CryptedInput(vector<int>& CryptedValues, int Length)
 void DecryptValues(vector<int>& DivisorValues, vector<int>& DecryptedValues, vector<int>& CryptedValues)
 {
 
-    int Index{ 0 };
+    unsigned long int Index{ 0 };
 
     for (int i : DivisorValues)
     {
@@ -105,7 +105,7 @@ string Message(vector<int> DecryptedValues, vector<int> PrimeValues, vector<int>
 int main()
 {
   vector<string> DecryptedMessage {};
-  int TestCases{}, Cont{ 1 } ;
+  int TestCases{}, Cont{ 0 } ;
 
   cin >> TestCases;
 
@@ -133,14 +133,14 @@ int main()
     DivisorValues.erase(unique(DivisorValues.begin(), DivisorValues.end()), DivisorValues.end());
 
     DecryptedMessage.push_back(Message(DecryptedValues, PrimeValues, DivisorValues));
-
-    Cont++;
+      
     TestCases--;
   }
 
   for(string i : DecryptedMessage)
   {
     cout<< "Case #" << Cont << ": " << i <<endl;
+    Cont++;
   }
 
   return 0;
