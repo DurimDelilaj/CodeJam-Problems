@@ -72,7 +72,7 @@ void DecryptValues(vector<int>& DivisorValues, vector<int>& DecryptedValues, vec
 
 int DecryptMessage(vector<int> PrimeValues, vector<int> DivisorValues, int Value)
 {
-    int Index{ 0 };
+  int Index{ 0 };
 
     for (int i : DivisorValues)
     {
@@ -87,26 +87,24 @@ int DecryptMessage(vector<int> PrimeValues, vector<int> DivisorValues, int Value
     return Index;
 }
 
-void Message(vector<int> DecryptedValues, vector<int> PrimeValues, vector<int> DivisorValues, int Cont)
+string Message(vector<int> DecryptedValues, vector<int> PrimeValues, vector<int> DivisorValues)
 {
-    vector<char> Character {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'};
+  vector<char> Character {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'};
+    
+  string DecryptedMessage {};
 
-    if(Cont == 1)
-    {
-      cout<< "\n";
-    }
-    cout << "Case # " << Cont << ":";
+  for (int i : DecryptedValues)
+  {
+    DecryptedMessage += Character[DecryptMessage(PrimeValues, DivisorValues, i)];
+  }
 
-    for (int i : DecryptedValues)
-    {
-        cout << Character[DecryptMessage(PrimeValues, DivisorValues, i)];
-    }
+  return DecryptedMessage;
 
-    cout << "\n";
 }
 
 int main()
 {
+  vector<string> DecryptedMessage {};
   int TestCases{}, Cont{ 1 } ;
 
   cin >> TestCases;
@@ -134,10 +132,15 @@ int main()
     sort(DivisorValues.begin(), DivisorValues.end());
     DivisorValues.erase(unique(DivisorValues.begin(), DivisorValues.end()), DivisorValues.end());
 
-    Message(DecryptedValues, PrimeValues, DivisorValues, Cont);
+    DecryptedMessage.push_back(Message(DecryptedValues, PrimeValues, DivisorValues));
 
     Cont++;
     TestCases--;
+  }
+
+  for(string i : DecryptedMessage)
+  {
+    cout<< "Case #" << Cont << ": " << i <<endl;
   }
 
   return 0;
