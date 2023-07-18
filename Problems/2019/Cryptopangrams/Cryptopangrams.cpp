@@ -139,8 +139,8 @@ int main()
 
   for(string i : DecryptedMessage)
   {
-    cout<< "Case #" << Cont << ": " << i <<endl;
     ++Cont;
+    cout<< "Case #" << Cont << ": " << i <<endl;
   }
 
   return 0;
