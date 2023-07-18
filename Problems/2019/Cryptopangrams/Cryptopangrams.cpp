@@ -140,7 +140,7 @@ int main()
   for(string i : DecryptedMessage)
   {
     cout<< "Case #" << Cont << ": " << i <<endl;
-    Cont++;
+    ++Cont;
   }
 
   return 0;
