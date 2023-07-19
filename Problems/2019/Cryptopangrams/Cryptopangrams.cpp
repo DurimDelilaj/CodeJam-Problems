@@ -134,14 +134,16 @@ int main()
 
     DecryptedMessage.push_back(Message(DecryptedValues, PrimeValues, DivisorValues));
       
+    if(Cont == 0)
+    {
+      cout<< "\n";
+    }
+    cout << "Case #" << (Cont + 1) <<": " << DecryptedMessage[Cont] <<endl;
+
+    Cont++;
     TestCases--;
   }
 
-  for(string i : DecryptedMessage)
-  {
-    ++Cont;
-    cout<< "Case #" << Cont << ": " << i <<endl;
-  }
 
   return 0;
 }
